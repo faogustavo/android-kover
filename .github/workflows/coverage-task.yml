@@ -27,7 +27,8 @@ jobs:
           java-version: "11"
 
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build -x check
+        ## Excluding the check task to build faster
 
       - name: Run Unit Tests
         run: ./gradlew check

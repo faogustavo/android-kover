@@ -53,6 +53,7 @@ afterEvaluate {
     tasks.withType(Test.class).configureEach {
         kover {
             generateHtml = true
+            xmlReportFile.set(file("$buildDir/kover/${name}/report.xml"))
             excludes = [".*BuildConfig.*"]
         }
     }
