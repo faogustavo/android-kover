@@ -1,0 +1,42 @@
+name: Code Coverage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Gradle Cache
+        uses: actions/cache@v1
+        with:
+          path: |
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+            ~/.android/build-cache
+          key: ${{ runner.OS }}-gradle-cache
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: "adopt"
+          java-version: "11"
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Run Unit Tests
+        run: ./gradlew check
+
+      - name: Run Instrumented Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
+
+      - name: Coverage
+        run: bash <(curl -s https://codecov.io/bash)

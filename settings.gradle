@@ -1,0 +1,13 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement {
+    repositories {
+        mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'https://cache-redirector.jetbrains.com/maven.pkg.jetbrains.space/kotlin/p/kotlin/dev' }
+        maven { url 'https://maven.pkg.jetbrains.space/public/p/jb-coverage/maven' }
+    }
+}
+
+rootProject.name = "KoverAndroid"
+include ':app'
